@@ -1,3 +1,25 @@
+# This fork is used to test -finstrument=mock compiler extension
+-----------------------------
+## Build
+```
+mkdir build.mock
+cd build.mock
+```
+Set up the new compiler. In the CMakeLists.txt file the compile flags and linker flags already set up.
+```
+cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=1 .. -DCMAKE_CXX_COMPILER=/Users/mg/Work/finstrument_mock/compiler/build.release/bin/clang++ -DCMAKE_C_COMPILER=/Users/mg/Work/finstrument_mock/compiler/build.release/bin/clang
+```
+Execute the test:
+```
+export DYLD_LIBRARY_PATH=/Users/mg/WORK/finstrument_mock/rt/finstrument_mock/build.release/compiler-rt/
+./src/test_lib_json/jsoncpp_test
+```
+<hr/>
+<hr/>
+<hr/>
+<hr/>
+<hr/>
+
 Introduction
 ------------
 
