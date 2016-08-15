@@ -11,6 +11,8 @@
 #include <sstream>
 #include <string>
 #include <iomanip>
+#include <chrono>
+#include <iostream>
 
 // Make numeric limits more convenient to talk about.
 // Assumes int type in 32 bits.
@@ -2511,6 +2513,8 @@ JSONTEST_FIXTURE(RValueTest, moveConstruction) {
 }
 
 int main(int argc, const char* argv[]) {
+  std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
+
   JsonTest::Runner runner;
   JSONTEST_REGISTER_FIXTURE(runner, ValueTest, checkNormalizeFloatingPointStr);
   JSONTEST_REGISTER_FIXTURE(runner, ValueTest, memberCount);
@@ -2585,5 +2589,8 @@ int main(int argc, const char* argv[]) {
 
   JSONTEST_REGISTER_FIXTURE(runner, RValueTest, moveConstruction);
 
-  return runner.runCommandLine(argc, argv);
+  auto res = runner.runCommandLine(argc, argv);
+  std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+  std::cerr << "took " << std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() << std::endl;
+  return res;
 }
